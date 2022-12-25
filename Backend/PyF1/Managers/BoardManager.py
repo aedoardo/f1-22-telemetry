@@ -1,12 +1,11 @@
 #  Copyright (c) 2022.
 #
 #  25/12/22, 10:54, BoardManager.py created by Edoardo.
-from typing import Dict, Union, List, Tuple
+from typing import Dict, Union
 from operator import *
 
-from Backend.PyF1.Constants.teams import TEAMS
-from Backend.PyF1.Managers.ParticipantsManager import Participant
-from Backend.PyF1.Managers.SessionHistoryManager import Lap
+from Managers.ParticipantsManager import Participant
+from Managers.SessionHistoryManager import Lap
 
 
 class BoardManager:
@@ -16,15 +15,14 @@ class BoardManager:
     def get_board(self) -> Dict[int, Dict[str, Union[str, int]]]:
         return self._board
 
-    def get_ordered_board(self) -> List[Tuple[int, Dict[str, Union[str, int]]]]:
+    def get_ordered_board(self) -> Dict[int, Dict[str, Union[str, int]]]:
         return sorted(self._board.items(), key=lambda kv: getitem(kv[1], 'bestLapTimeInMS'))
 
-    def update(self, participants: Dict[int, Participant],
-               laps: Dict[int, Dict[int, Lap]],
-               bestLaps: Dict[int, int]) -> None:
+    def receive_update(self, participants: Dict[int, Participant],
+                       laps: Dict[int, Dict[int, Lap]],
+                       bestLaps: Dict[int, int]) -> None:
 
         for idx, _ in enumerate(participants):
-            # TODO: check if the "ifs" are useful or not.
             if idx in participants:
                 participant: Participant = participants[idx]
 
@@ -40,5 +38,4 @@ class BoardManager:
                             "sector1": bestLap.get_sector_one_time_in_ms(),
                             "sector2": bestLap.get_sector_snd_in_ms(),
                             "sector3": bestLap.get_sector_thrd_in_ms(),
-                            "teamName": TEAMS[participant.m_teamId]
                         }
