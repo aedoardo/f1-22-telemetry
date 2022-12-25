@@ -5,13 +5,14 @@
 from ctypes import *
 from typing import Dict, Tuple, Union, Type
 
-from Managers.BoardManager import BoardManager
-from Managers.ParticipantsManager import ParticipantsManager
-from Managers.SessionHistoryManager import SessionHistoryManager
-from Packets.PacketHeader import PacketHeader
-from Packets.PacketLobbyInfo import PacketLobbyInfo
-from Packets.PacketParticipants import PacketParticipants
-from Packets.PacketSessionHistory import PacketSessionHistory
+from Backend.PyF1.Managers.BoardManager import BoardManager
+from Backend.PyF1.Managers.ParticipantsManager import ParticipantsManager
+from Backend.PyF1.Managers.SessionHistoryManager import SessionHistoryManager
+from Backend.PyF1.Packets import PacketHeader
+from Backend.PyF1.Packets import PacketLobbyInfo
+from Backend.PyF1.Packets import PacketParticipants
+from Backend.PyF1.Packets.PacketSessionHistory import PacketSessionHistory
+from time import time
 
 
 class PacketsManager:
@@ -27,6 +28,10 @@ class PacketsManager:
             4: (PacketParticipants, self._participantsManager),
             9: (PacketLobbyInfo,),
             11: (PacketSessionHistory, self._sessionHistoryManager)
+        }
+
+        self._webDispatcher: Dict[str, float] = {
+            "send_board": time()
         }
 
     def onData(self, data: bytes) -> None:
@@ -47,8 +52,6 @@ class PacketsManager:
             manager: Union[ParticipantsManager] = self._dispatcher[headerData.m_packetId][1]
             manager.handle_data_packet(packet)
 
-        self._boardManager.receive_update(self._participantsManager.get_participants(),
-                                          self._sessionHistoryManager.get_laps(),
-                                          self._sessionHistoryManager.get_best_laps())
-
-        #print(self._boardManager.get_ordered_board())
+        self._boardManager.update(self._participantsManager.get_participants(),
+                                  self._sessionHistoryManager.get_laps(),
+                                  self._sessionHistoryManager.get_best_laps())

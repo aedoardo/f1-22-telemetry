@@ -1,10 +1,12 @@
 #  Copyright (c) 2022.
 #
+#  25/12/22, 16:25, main.py created by Edoardo.
+#
 #  25/12/22, 10:55, main.py created by Edoardo.
 
 import socket
 
-from Managers.MainManager import PacketsManager
+from Backend.PyF1.Managers.MainManager import PacketsManager
 
 if __name__ == "__main__":
 
