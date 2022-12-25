@@ -6,7 +6,7 @@
 
 import socket
 
-from Managers.MainManager import PacketsManager
+from Backend.PyF1.Managers.MainManager import PacketsManager
 
 if __name__ == "__main__":
 
