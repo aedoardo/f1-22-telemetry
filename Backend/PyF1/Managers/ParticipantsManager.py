@@ -2,9 +2,9 @@
 #
 #  25/12/22, 10:55, ParticipantsManager.py created by Edoardo.
 
-from typing import List, Dict
+from typing import Dict
 
-from Packets.PacketParticipants import PacketParticipants
+from Backend.PyF1.Packets import PacketParticipants
 
 
 class Participant:

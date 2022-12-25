@@ -5,7 +5,7 @@
 from ctypes import *
 from typing import List
 
-from Packets.PacketHeader import PacketHeader
+from Backend.PyF1.Packets import PacketHeader
 
 
 class LapHistoryData(LittleEndianStructure):

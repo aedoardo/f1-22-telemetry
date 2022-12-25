@@ -2,9 +2,9 @@
 #
 #  25/12/22, 10:53, SessionHistoryManager.py created by Edoardo.
 
-from typing import Dict, Tuple
+from typing import Dict
 
-from Packets.PacketSessionHistory import PacketSessionHistory, LapHistoryData
+from Backend.PyF1.Packets.PacketSessionHistory import PacketSessionHistory, LapHistoryData
 
 
 class Lap:
