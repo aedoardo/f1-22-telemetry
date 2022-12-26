@@ -4,7 +4,7 @@
 
 from typing import Dict
 
-from Backend.PyF1.Packets.PacketSessionHistory import PacketSessionHistory, LapHistoryData
+from Packets.PacketSessionHistory import PacketSessionHistory, LapHistoryData
 
 
 class Lap:

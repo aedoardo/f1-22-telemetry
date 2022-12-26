@@ -2,8 +2,12 @@
 #
 #  25/12/22, 10:59, MainManager.py created by Edoardo.
 
+import sys, os
+
 from ctypes import *
-from typing import Dict, Tuple, Union, Type
+from typing import Dict, Tuple, Union, Type, Any
+from time import time
+from socketio import Client
 
 from Managers.BoardManager import BoardManager
 from Managers.ParticipantsManager import ParticipantsManager
@@ -21,12 +25,22 @@ class PacketsManager:
         self._participantsManager: ParticipantsManager = ParticipantsManager()
         self._sessionHistoryManager: SessionHistoryManager = SessionHistoryManager()
         self._boardManager: BoardManager = BoardManager()
+        self._socketIoClient: Client = Client()
+        self._socketIoClient.connect("http://localhost:3001")
 
         self._dispatcher: Dict[
             int, Tuple[Union[Type[PacketLobbyInfo], Type[PacketParticipants]]], Union[Type[ParticipantsManager]]] = {
             4: (PacketParticipants, self._participantsManager),
             9: (PacketLobbyInfo,),
             11: (PacketSessionHistory, self._sessionHistoryManager)
+        }
+
+        self._webDispatch: Dict[str, Tuple[Any, float]] = {
+            "send_board": (self._boardManager.get_ordered_board, 1)
+        }
+
+        self._webDispatchTimings: Dict[str, float] = {
+            "send_board": time()
         }
 
     def onData(self, data: bytes) -> None:
@@ -51,4 +65,14 @@ class PacketsManager:
                                           self._sessionHistoryManager.get_laps(),
                                           self._sessionHistoryManager.get_best_laps())
 
-        #print(self._boardManager.get_ordered_board())
+        for message in self._webDispatch:
+            currentTime: float = time()
+            waitingTime: float = self._webDispatch[message][1]
+
+            if currentTime - self._webDispatchTimings[message] >= waitingTime:
+                self._socketIoClient.emit(
+                    message, self._webDispatch[message][0]()
+                )
+
+                self._webDispatchTimings[message] = currentTime
+

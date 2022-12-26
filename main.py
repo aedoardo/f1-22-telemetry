@@ -1,12 +1,12 @@
 #  Copyright (c) 2022.
 #
 #  25/12/22, 17:00, main.py created by Edoardo.
-#
-#  25/12/22, 10:55, main.py created by Edoardo.
 
 import socket
+import os
+import sys
 
-from Backend.PyF1.Managers.MainManager import PacketsManager
+from Managers.MainManager import PacketsManager
 
 if __name__ == "__main__":
 
@@ -22,6 +22,8 @@ if __name__ == "__main__":
             pManager.onData(data)
 
         except Exception as e:
-            pass
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
 
 

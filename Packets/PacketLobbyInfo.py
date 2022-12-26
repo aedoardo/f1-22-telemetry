@@ -5,7 +5,7 @@
 from ctypes import *
 from typing import List
 
-from Backend.PyF1.Packets import PacketHeader
+from Packets.PacketHeader import PacketHeader
 
 
 class LobbyInfoData(LittleEndianStructure):
