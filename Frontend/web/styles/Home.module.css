@@ -1,0 +1,66 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+@keyframes spinner {
+    0% {
+      transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
+}
+
+.loadingText {
+    margin-top: 35px;
+    text-align: center;
+    color: #1e1e1f;
+    font-weight: bold;
+}
+
+.spin::before {
+    position: fixed;
+    animation: 1.5s linear infinite spinner;
+    animation-play-state: inherit;
+    border: solid 5px #acadad;
+    border-bottom-color: #1e1e1f;
+    border-radius: 50%;
+    content: "";
+    height: 40px;
+    transform: translate3d(-50%, -50%, 0);
+    width: 40px;
+    will-change: transform;
+}
+
+.screen {
+  padding: 30px;
+  flex-direction: column;
+}
+
+.generalBox {
+  border: 3px solid #1e1e1f;
+  border-radius: 5px;
+  padding: 5px;
+  width: 500px;
+}
+
+.generalBox > span {
+  font-weight: bold;
+  color: white;
+  font-size: 30px;
+}
+
+.sessionInfoBox {
+  margin-top: 20px;
+}
+
+.sessionInfoBox > li {
+  font-size: 17px;
+  padding: 3px;
+  color: white;
+  margin-top: 5px;
+}
