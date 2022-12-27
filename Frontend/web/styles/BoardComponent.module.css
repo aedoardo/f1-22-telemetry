@@ -67,3 +67,36 @@
     background-repeat: no-repeat !important;
     margin: 0 auto;
 }
+
+.tyre {
+    position: relative;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: black;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+}
+
+.leftHalf, .rightHalf {
+    height: 4px;
+    width: 12px;
+    border-top-left-radius: 12px;  /* 100px of height + 10px of border */
+    border-top-right-radius: 12px; /* 100px of height + 10px of border */
+    border: 3px solid;
+    border-bottom: 0;
+    transform: rotate(90deg);
+    position: absolute;
+    right: -5px;
+    top: 12px;
+}
+
+.leftHalf {
+    transform: rotate(-90deg);
+    left: -5px;
+}

@@ -63,17 +63,14 @@ At the moment, there is only the drivers board (_still to complete_).
 
 ### Drivers board
 
-![MainBoard](https://i.gyazo.com/5dc1bbcde0208f44e788d23d3a236969.png)
+![MainBoard](https://i.gyazo.com/f75f49ab8ac61d90586494e4f9a7d059.png)
 
 This is the **Drivers Board** which receives an update every second.
+The upper part of the page is reserved to the "Session information". These information includes:
 
-**TODO LIST**:
-
-- [X] Add drivers list to the board
-- [X] Add sectors and best lap times to the board;
-- [X] Add purple color for the best lap;
-- [X] Add purple color for best sectors (among the best laps only!)
-- [ ] Add purple color for best sectors **AMONG ALL THE LAPS**
-- [ ] Add green color for sectors that are not the best in general
-- [ ] Add team image
-- [ ] Add current tyres in use
+    - the type of session;
+    - the remaining time, which receive the updates every second;
+    - the track name;
+    - the air temperature;
+    - the track temperature;
+    - the current weather.

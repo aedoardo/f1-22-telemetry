@@ -15,6 +15,10 @@ io.on("connection", (socket) => {
 
     socket.on("send_board", (data) => {
         io.emit("send_board", data);
+    });
+
+    socket.on("send_session", (data) => {
+        io.emit("send_session", data);
     })
 });
 

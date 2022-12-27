@@ -7,11 +7,13 @@
 import {configureStore, ThunkAction, Action} from "@reduxjs/toolkit";
 import {boardSlice} from "./boardSlice";
 import {createWrapper} from "next-redux-wrapper"
+import {sessionSlice} from "./sessionSlice";
 
 const makeStore = () =>
     configureStore({
         reducer: {
-            [boardSlice.name]: boardSlice.reducer
+            [boardSlice.name]: boardSlice.reducer,
+            [sessionSlice.name]: sessionSlice.reducer
         },
         devTools: true
     });
