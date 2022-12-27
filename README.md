@@ -65,7 +65,7 @@ At the moment, there is only the drivers board (_still to complete_).
 
 ![MainBoard](https://i.gyazo.com/5dc1bbcde0208f44e788d23d3a236969.png)
 
-This is the **Drivers Board** updated every second.
+This is the **Drivers Board** which receives an update every second.
 
 **TODO LIST**:
 
