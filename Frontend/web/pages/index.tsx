@@ -5,7 +5,9 @@ import styles from '../styles/Home.module.css'
 import io from "socket.io-client";
 import {useDispatch, useSelector} from "react-redux";
 import {selectBoardState, setBoardState} from "../store/boardSlice";
+import {selectSessionState, setSessionState} from "../store/sessionSlice";
 import BoardComponent from "./components/BoardComponent";
+import SessionComponent from "./components/SessionComponent";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,10 +16,15 @@ let socket = io("localhost:3001", {transports: ["websocket"]})
 export default function Home() {
 
     const boardState = useSelector(selectBoardState);
+    const sessionState = useSelector(selectSessionState);
     const dispatch = useDispatch();
 
     socket.on("send_board", (data) => {
         dispatch(setBoardState(data));
+    });
+
+    socket.on("send_session", (data) => {
+        dispatch(setSessionState(data));
     });
 
     return (
@@ -39,6 +46,9 @@ export default function Home() {
 
             {boardState.length > 0 &&
                 <>
+                    {sessionState != undefined && Object.keys(sessionState).length > 0 &&
+                        <SessionComponent data={sessionState}/>
+                    }
                     <BoardComponent boardState={boardState}/>
                 </>
             }

@@ -10,12 +10,13 @@ from Packets.PacketSessionHistory import PacketSessionHistory, LapHistoryData
 class Lap:
 
     def __init__(self, _lapTimeInMS: int, _sector1TimeInMS: int, _sector2TimeInMS: int, _sector3TimeInMS: int,
-                 _validLap: int):
+                 _validLap: int, _tyreCompound: int):
         self._lapTimeInMS: int = _lapTimeInMS
         self._sector1TimeInMS: int = _sector1TimeInMS
         self._sector2TimeInMS: int = _sector2TimeInMS
         self._sector3TimeInMS: int = _sector3TimeInMS
         self._isValid: int = _validLap
+        self._actualTyreCompound: int = _tyreCompound
 
     def get_lap_time_in_ms(self) -> int:
         return self._lapTimeInMS
@@ -28,6 +29,9 @@ class Lap:
 
     def get_sector_thrd_in_ms(self) -> int:
         return self._sector3TimeInMS
+
+    def get_tyre_compound(self) -> int:
+        return self._actualTyreCompound
 
 
 class SessionHistoryManager:
@@ -55,6 +59,13 @@ class SessionHistoryManager:
         lapData: LapHistoryData
         for (index, lapData) in enumerate(packet.m_lapHistoryData):
             if lapData.m_lapTimeInMS > 0:  # save lap only if it is a completed lap.
+                actualTyreCompound: int = -1  # 16 = soft, 17 = medium, 18 = hard, 7 = inter, 8 = wet
+                for tyreStint in packet.m_tyreStintsHistoryData:
+                    if tyreStint.m_endLap != 255:
+                        continue
+                    else:
+                        actualTyreCompound = tyreStint.m_tyreActualCompound
+
                 self._laps[carIdx][(index + 1)] = Lap(lapData.m_lapTimeInMS, lapData.m_sector1TimeInMS,
                                                       lapData.m_sector2TimeInMS, lapData.m_sector3TimeInMS,
-                                                      lapData.m_lapValidBitFlags)
+                                                      lapData.m_lapValidBitFlags, actualTyreCompound)
