@@ -37,7 +37,7 @@
 }
 
 .screen {
-  padding: 30px;
+  padding: 10px 10px 10px 10px;
   flex-direction: column;
 }
 
